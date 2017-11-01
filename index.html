@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Maxim Yaskevich | Sheet music library</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+    <script src="https://opensheetmusicdisplay.org/demo/osmd-debug.js" charset="utf-8" type="text/javascript"></script>
+  </head>
+  <body>
+    <div class="container">
+      <ul class="list">
+      </ul>
+      <div id="osmd" class="display">
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      var library = [
+        {
+          title: 'Actor Prelude Sample',
+          url: 'https://raw.githubusercontent.com/myaskevich/ear-learned/master/catalog/ActorPreludeSample.xml',
+        }
+      ];
+
+      function renderPiece(entry) {
+        var osmd = new opensheetmusicdisplay.OSMD("osmd");
+        osmd
+          .load(entry.url)
+          .then(
+            function() {
+              osmd.render();
+            }
+          );
+      }
+
+      (function () {
+        var list = document.querySelector('.container .list')
+
+        for (var i = 0; i < library.length; i++) {
+          var libEntry = library[i];
+
+          var itemElement = document.createElement('li');
+          var linkElement = document.createElement('a');
+
+          linkElement.setAttribute('href', '#');
+          linkElement.innerText = libEntry.title;
+          linkElement.onclick = renderPiece.bind(this, libEntry)
+
+          itemElement.appendChild(linkElement);
+          list.appendChild(itemElement);
+        }
+      })();
+    </script>
+  </body>
+</html>
