@@ -3,8 +3,6 @@
   <head>
     <meta charset="utf-8">
     <title>Maxim Yaskevich | Sheet music library</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
-    <script src="https://opensheetmusicdisplay.org/demo/osmd-debug.js" charset="utf-8" type="text/javascript"></script>
   </head>
   <body>
     <div class="container">
@@ -22,6 +20,17 @@
         }
       ];
 
+      function loadOsmd() {
+        var head = document.querySelector('head');
+        var scriptElement = document.createElement('script');
+
+        scriptElement.setAttribute('charset', 'utf-8');
+        scriptElement.setAttribute('type', 'text/javascript');
+        scriptElement.setAttribute('src', 'https://opensheetmusicdisplay.org/demo/osmd-debug.js');
+
+        head.appendChild(scriptElement);
+      }
+
       function renderPiece(entry) {
         var osmd = new opensheetmusicdisplay.OSMD("osmd");
         osmd
@@ -34,6 +43,8 @@
       }
 
       (function () {
+        loadOsmd();
+
         var list = document.querySelector('.container .list')
 
         for (var i = 0; i < library.length; i++) {
